@@ -4,11 +4,14 @@
   "description": " Discord bot to push alerts to SNFL discord from Yahoo Fantasy Football",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "DEBUG=* node index.js",
+    "watch": "DEBUG=* nodemon --ignore public/",
+    "inspect": "DEBUG=* nodemon --inspect"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/John-Youngblood/SNFL-Discord-Bot.git"
+    "url": "git@github.com:John-Youngblood/SNFL-Discord-Bot.git"
   },
   "keywords": [
     "discord",
@@ -24,8 +27,12 @@
   },
   "homepage": "https://github.com/John-Youngblood/SNFL-Discord-Bot#readme",
   "dependencies": {
+    "debug": "^4.3.2",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "grant": "^5.4.17"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
   }
 }
