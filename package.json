@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/John-Youngblood/SNFL-Discord-Bot#readme",
   "dependencies": {
+    "axios": "^0.21.4",
     "debug": "^4.3.2",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
