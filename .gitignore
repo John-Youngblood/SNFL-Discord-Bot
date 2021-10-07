@@ -119,3 +119,5 @@ dist
 
 
 .idea/
+
+push_to_AWS.sh

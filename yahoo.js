@@ -7,7 +7,7 @@ async function requestAuth() {
     const response = await axios.get('https://api.login.yahoo.com/oauth2/request_auth', {
       params: {
         response_type: 'code',
-        redirect_uri: process.env.YAHOO_REDIRECT_URI,
+        redirect_uri: 'https://www.youngblood.cool',
         client_id: process.env.YAHOO_CLIENT_ID,
       },
       headers: {'Content-Type': 'text/html; charset=utf-8'}
@@ -29,16 +29,21 @@ async function requestAuth() {
   }
 }
 
-async function getAccessToken(grant_type='authorization_code') {
+async function getAccessToken(code) {
   try {
+    const authorization = Buffer.from(`${process.env.YAHOO_CLIENT_ID}:${process.env.YAHOO_CLIENT_SECRET}`).toString('base64');
+    log(authorization)
     const response = await axios.post('https://api.login.yahoo.com/oauth2/get_token', {
-      grant_type,
-      redirect_uri: process.env.YAHOO_REDIRECT_URI,
-      code: process.env.YAHOO_CODE,
+      'grant_type': 'authorization_code',
+      'redirect_uri': encodeURI(process.env.YAHOO_REDIRECT_URI),
+      'code': code
     },{
-      headers: {'Content-Type': 'text/html; charset=utf-8'}
+      headers: {
+        'Authorization': 'Basic ' + authorization,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     })
-    log(response)
+    log(response.data)
     return response.data;
   } catch (error) {
     console.error(error);
@@ -55,6 +60,36 @@ async function getAccessToken(grant_type='authorization_code') {
   }
 }
 
+async function getAccessTokenRefresh(refresh_token) {
+  try {
+    const authorization = Buffer.from(`${process.env.YAHOO_CLIENT_ID}:${process.env.YAHOO_CLIENT_SECRET}`).toString('base64');
+    // log(authorization)
+    const response = await axios.post('https://api.login.yahoo.com/oauth2/get_token', {
+      'grant_type': 'refresh_token',
+      'redirect_uri': encodeURI(process.env.YAHOO_REDIRECT_URI),
+      'refresh_token': refresh_token
+    },{
+      headers: {
+        'Authorization': 'Basic ' + authorization,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+    log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return `<html id="Stencil" class="no-js grid mobile light-theme ">
+      <head>
+        <meta charset="utf-8">
+      </head>
+      <body>
+        <p>
+          ${error}
+        </p>
+      </body>
+    </html>`
+  }
+}
 
 // const requestAuth = () => {
 //   axios.get('https://api.login.yahoo.com/oauth2/request_auth', {
@@ -76,3 +111,4 @@ async function getAccessToken(grant_type='authorization_code') {
 
 exports.requestAuth = requestAuth;
 exports.getAccessToken = getAccessToken;
+exports.getAccessTokenRefresh = getAccessTokenRefresh;

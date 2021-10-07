@@ -1,0 +1,21 @@
+{
+  "defaults": {
+    "origin": "https://www.youngblood.cool",
+    "transport": "session"
+  },
+  "yahoo": {
+    "key": "APP_ID",
+    "secret": "APP_SECRET",
+    "callback": "/public"
+  },
+  "google": {
+    "key": "dj0yJmk9WHdENnpBZ29raGZZJmQ9WVdrOVRVMWxZVWxNYWpVbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PWU5",
+    "secret": "1388b960ad416ac2e7768233ceb1aab77fc23836",
+    "callback": "/hello"
+  },
+  "twitter": {
+    "key": "CONSUMER_KEY",
+    "secret": "CONSUMER_SECRET",
+    "callback": "/hi"
+  }
+}
