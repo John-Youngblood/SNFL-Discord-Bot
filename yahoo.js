@@ -75,3 +75,4 @@ async function getAccessToken(grant_type='authorization_code') {
 // }
 
 exports.requestAuth = requestAuth;
+exports.getAccessToken = getAccessToken;

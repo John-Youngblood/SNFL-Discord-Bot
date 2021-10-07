@@ -18,6 +18,7 @@ process.stdout.on('error', function( err ) {
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/status', async (req,res, next) => {
   res.status(200).send('alive');
 })
@@ -37,6 +38,24 @@ app.get('/request_auth',(req, res, next) => {
   .catch(err => {
     res.send(err);
   });
+  }
+)
+
+app.get('/get_access_token',(req, res, next) => {
+    // res.send('Hello World');
+    let type = 'text/html';
+
+    res.type(type);
+
+    // document.write()
+
+    yahoo.getAccessToken()
+    .then((response) => {
+      res.send(response);
+    })
+    .catch(err => {
+      res.send(err);
+    });
   }
 )
 
