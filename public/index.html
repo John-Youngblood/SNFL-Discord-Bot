@@ -10,16 +10,16 @@
   </head>
   <body>
   <p id="param-path">
-    refresh token:
+    yahoo code:
   </p>
     <script>
-      const param = /[&?]path=([^&]+)/.exec(location.search);
+      const param = /[&?]code=([^&]+)/.exec(location.search);
       console.log(param);
       if (param) {
         const text = document.createTextNode(param[1]);
         const paragraph = document.getElementById('param-path');
         paragraph.appendChild(text);
       }
-    </script>​
+    </script>
   </body>
 </html>

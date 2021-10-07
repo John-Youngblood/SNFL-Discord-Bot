@@ -7,7 +7,7 @@ async function requestAuth() {
     const response = await axios.get('https://api.login.yahoo.com/oauth2/request_auth', {
       params: {
         response_type: 'code',
-        redirect_uri: 'https://youngblood.cool',
+        redirect_uri: process.env.YAHOO_REDIRECT_URI,
         client_id: process.env.YAHOO_CLIENT_ID,
       },
       headers: {'Content-Type': 'text/html; charset=utf-8'}
@@ -28,6 +28,33 @@ async function requestAuth() {
   </html>`
   }
 }
+
+async function getAccessToken(grant_type='authorization_code') {
+  try {
+    const response = await axios.post('https://api.login.yahoo.com/oauth2/get_token', {
+      grant_type,
+      redirect_uri: process.env.YAHOO_REDIRECT_URI,
+      code: process.env.YAHOO_CODE,
+    },{
+      headers: {'Content-Type': 'text/html; charset=utf-8'}
+    })
+    log(response)
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return `<html id="Stencil" class="no-js grid mobile light-theme ">
+      <head>
+        <meta charset="utf-8">
+      </head>
+      <body>
+        <p>
+          ${error}
+        </p>
+      </body>
+    </html>`
+  }
+}
+
 
 // const requestAuth = () => {
 //   axios.get('https://api.login.yahoo.com/oauth2/request_auth', {
