@@ -17,9 +17,12 @@ process.stdout.on('error', function( err ) {
   }
 });
 
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/status', async (req,res, next) => {
+  res.status(200).send('alive');
+})
 
-app.get('/',(req, res, next) => {
+app.get('/request_auth',(req, res, next) => {
   // res.send('Hello World');
   let type = 'text/html';
 
@@ -58,7 +61,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(Buffer.from(process.env.YAHOO_CLIENT_ID+':'+process.env.YAHOO_CLIENT_SECRET).toString('base64'));
-  yahoo.requestAuth();
   console.log(`App listening at http://${HOST}:${PORT}`)
 })
